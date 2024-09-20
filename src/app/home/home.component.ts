@@ -5,6 +5,8 @@ import { CardModule } from 'primeng/card';
 import { Categoria } from '../models/categoria';
 import { CategoriaService } from '../services/categoria.service';
 import { TableModule } from 'primeng/table';
+import { SeccionesService } from '../services/secciones.service';
+import { Seccion } from '../models/secciones';
 @Component({
   selector: 'app-home',
   standalone: true,
@@ -15,15 +17,24 @@ import { TableModule } from 'primeng/table';
 export class HomeComponent {
  categorias: Categoria[]=[];
 
- constructor( private categoriaService:CategoriaService){}
+ constructor( private categoriaService:CategoriaService, private seccionService: SeccionesService){}
 
  ngOnInit():void{
   this.listarCategoria();
+  this.listarSeccion();
  }
 
  listarCategoria(){
   this.categoriaService.getCategorias().subscribe((data)=>{
     this.categorias=data;
+  });
+ }
+
+ secciones: Seccion[]=[];
+
+ listarSeccion(){
+  this.seccionService.getSecciones().subscribe((data)=>{
+    this.secciones=data;
   });
  }
 }
